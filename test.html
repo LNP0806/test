@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhóm của chúng tôi</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Biến màu sắc */
+        :root {
+            --dark-blue: #0a192f;
+            --medium-blue: #112240;
+            --light-blue: #233554;
+            --accent: #64ffda;
+            --text-light: #ccd6f6;
+            --text-dark: #8892b0;
+        }
+
+        body {
+            background-color: var(--dark-blue);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--medium-blue);
+            padding: 1.5rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            text-align: center;
+            padding: 8rem 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-dark);
+        }
+
+        /* Team Section */
+        .team-section {
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-light);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 2px;
+            background-color: var(--accent);
+            bottom: -10px;
+            left: 20%;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background-color: var(--medium-blue);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .member-photo {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--light-blue);
+        }
+
+        .member-info {
+            padding: 1.5rem;
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .member-role {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .member-desc {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        /* Info Sections */
+        .info-section {
+            margin-top: 4rem;
+        }
+
+        .info-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background-color: var(--medium-blue);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .info-card p {
+            color: var(--text-dark);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--medium-blue);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            color: var(--text-dark);
+        }
+
+        .info-container{
+            scroll-margin: 200px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">NhómXYZ</div>
+            <div class="nav-links">
+                <a href="#home">Trang chủ</a>
+                <a href="#about">Giới thiệu</a>
+                <a href="#team">Thành viên</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Chào mừng đến với nhóm của chúng tôi</h1>
+        <p>Chúng tôi là một nhóm đam mê với sứ mệnh tạo ra những sản phẩm công nghệ xuất sắc và đột phá.</p>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="team-section">
+        <h2 class="section-title">Về chúng tôi</h2>
+        <div class="info-container">
+            <div class="info-card">
+                <h3>Sứ mệnh</h3>
+                <p>Chúng tôi cam kết mang đến những giải pháp công nghệ tiên tiến, đáp ứng nhu cầu của khách hàng và tạo ra giá trị bền vững cho cộng đồng.</p>
+            </div>
+            <div class="info-card">
+                <h3>Tầm nhìn</h3>
+                <p>Trở thành đơn vị dẫn đầu trong lĩnh vực công nghệ, luôn đổi mới và sáng tạo để định hình tương lai số.</p>
+            </div>
+            <div class="info-card">
+                <h3>Giá trị cốt lõi</h3>
+                <p>Đổi mới, chất lượng, hợp tác và trách nhiệm là những giá trị nền tảng định hướng mọi hoạt động của chúng tôi.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team-section">
+        <h2 class="section-title">Thành viên nhóm</h2>
+        <div class="team-grid">
+            <a href="#info1">
+                <div class="team-member">
+                    <img src="https://via.placeholder.com/300x300/233554/64ffda?text=Thành+viên+1" alt="Thành viên 1" class="member-photo">
+                    <div class="member-info">
+                        <h3 class="member-name">Nguyễn Văn A</h3>
+                        <p class="member-role">Trưởng nhóm</p>
+                        <p class="member-desc">Chuyên gia với 5 năm kinh nghiệm trong lĩnh vực phát triển phần mềm.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#info2">
+                <div class="team-member">
+                    <img src="https://via.placeholder.com/300x300/233554/64ffda?text=Thành+viên+2" alt="Thành viên 2" class="member-photo">
+                    <div class="member-info">
+                        <h3 class="member-name">Trần Thị B</h3>
+                        <p class="member-role">Nhà thiết kế</p>
+                        <p class="member-desc">Chuyên gia thiết kế UI/UX với khả năng sáng tạo vượt trội.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#info3">
+                <div class="team-member">
+                    <img src="https://via.placeholder.com/300x300/233554/64ffda?text=Thành+viên+3" alt="Thành viên 3" class="member-photo">
+                    <div class="member-info">
+                        <h3 class="member-name">Lê Văn C</h3>
+                        <p class="member-role">Lập trình viên</p>
+                        <p class="member-desc">Chuyên gia phát triển frontend với kiến thức chuyên sâu về JavaScript.</p>
+                    </div>
+                </div>
+            </a>
+
+            
+        </div>
+    </section>
+
+    <!-- Info Sections -->
+    
+
+    <section class="info-section" id="info">
+        <div id="info1" class="info-container">
+            <div class="info-card">
+                <h3>Thông tin chi tiết: Nguyễn Văn A</h3>
+                <p>Nguyễn Văn A là trưởng nhóm với hơn 5 năm kinh nghiệm trong ngành công nghệ. Anh đã từng làm việc tại nhiều công ty lớn và có kiến thức chuyên sâu về phát triển phần mềm, quản lý dự án và chiến lược công nghệ.</p>
+                <p>Kỹ năng: JavaScript, Python, React, Node.js, Quản lý dự án</p>
+                <p>Dự án nổi bật: Hệ thống quản lý doanh nghiệp, Ứng dụng di động thương mại điện tử</p>
+            </div>
+        </div>
+
+        <div id="info2" class="info-container" style="margin-top: 2rem;">
+            <div class="info-card">
+                <h3>Thông tin chi tiết: Trần Thị B</h3>
+                <p>Trần Thị B là nhà thiết kế UI/UX tài năng với 4 năm kinh nghiệm. Cô có khả năng tạo ra các giao diện người dùng trực quan, thân thiện và hiệu quả, đồng thời am hiểu sâu về tâm lý người dùng.</p>
+                <p>Kỹ năng: Figma, Adobe XD, Photoshop, Illustrator, Research & Testing</p>
+                <p>Dự án nổi bật: Thiết kế hệ thống ngân hàng trực tuyến, Ứng dụng giáo dục trực tuyến</p>
+            </div>
+        </div>
+
+        <div id="info3" class="info-container" style="margin-top: 2rem;">
+            <div class="info-card">
+                <h3>Thông tin chi tiết: Lê Văn C</h3>
+                <p>Lê Văn C là lập trình viên frontend với 3 năm kinh nghiệm. Anh có kiến thức chuyên sâu về JavaScript và các framework hiện đại, luôn cập nhật những công nghệ mới nhất để tạo ra trải nghiệm người dùng tốt nhất.</p>
+                <p>Kỹ năng: HTML5, CSS3, JavaScript, React, Vue.js, TypeScript</p>
+                <p>Dự án nổi bật: Ứng dụng quản lý tài chính cá nhân, Website thương mại điện tử</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2023 NhómXYZ. Tất cả các quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToInfo(infoId) {
+            const element = document.getElementById(infoId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
